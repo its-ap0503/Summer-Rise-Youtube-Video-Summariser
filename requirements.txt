@@ -1,0 +1,11 @@
+fastapi
+pydantic>=2
+uvicorn
+gunicorn
+youtube-transcript-api>=1.0
+slowapi
+redis
+psycopg[binary]
+sqlalchemy>=2.1
+python-dotenv
+google-genai

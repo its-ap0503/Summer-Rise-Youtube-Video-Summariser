@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SummerRise — YouTube Lecture Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">SummerRise</h1>
+          <span class="brand-subtitle">Lecture Study Engine</span>
+        </div>
+      </div>
+
+      <div class="sidebar-header">
+        <span>REVISION LIBRARY</span>
+        <button type="button" id="refresh-history-btn" class="icon-btn" title="Refresh Library">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 2v6h-6"></path>
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+            <path d="M3 22v-6h6"></path>
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="history-list" class="history-list">
+        <div class="empty-history">No saved lectures yet.</div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="status-dot-row">
+          <span class="pulse-dot"></span>
+          <span>Redis L1 + Postgres L2 Active</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="workspace">
+      <header class="topbar">
+        <form id="summarize-form" class="url-form" novalidate>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            <input
+              type="url"
+              id="video-url-input"
+              placeholder="Paste YouTube lecture link (https://www.youtube.com/watch?v=... or youtu.be/...)"
+              required
+              autocomplete="off"
+            />
+          </div>
+          <button type="submit" id="submit-btn" class="primary-btn">
+            <span id="btn-text">Summarize</span>
+            <span id="btn-spinner" class="spinner hidden"></span>
+          </button>
+        </form>
+
+        <button type="button" id="theme-toggle-btn" class="theme-btn" title="Toggle Dark/Light Mode">
+          <span id="theme-label">Light</span>
+        </button>
+      </header>
+
+      <div id="status-banner" class="status-banner hidden"></div>
+
+      <!-- Clean KISS Empty State -->
+      <section id="welcome-state" class="welcome-state">
+        <div class="welcome-box">
+          <div class="pill-group">
+            <span class="tone-pill amber">60s Bucket Compression</span>
+            <span class="tone-pill emerald">Clickable Timestamps</span>
+            <span class="tone-pill cyan">Active-Recall Quiz</span>
+          </div>
+          <h2>Structured Study Notes from Any YouTube Lecture</h2>
+          <p>
+            Paste a YouTube link above or select a saved lecture from the left library to load timestamped notes and an interactive revision quiz.
+          </p>
+        </div>
+      </section>
+
+      <!-- Active Workspace -->
+      <section id="study-workspace" class="study-workspace hidden">
+        <!-- Left: Video & Overview -->
+        <div class="player-column">
+          <div class="video-card">
+            <div class="video-aspect-box">
+              <div id="yt-player"></div>
+            </div>
+          </div>
+
+          <div class="overview-card">
+            <div class="card-meta">
+              <span class="tag-cyan">OVERVIEW</span>
+              <span id="video-id-badge" class="mono-badge"></span>
+            </div>
+            <h2 id="lecture-title" class="lecture-title"></h2>
+            <p id="lecture-overview" class="lecture-overview"></p>
+          </div>
+        </div>
+
+        <!-- Right: Notes & Quiz -->
+        <div class="companion-column">
+          <div class="tabs-header">
+            <div class="tabs-left">
+              <button type="button" class="tab-btn active" data-tab="notes-tab">
+                Timestamped Notes <span id="notes-count" class="count-pill">0</span>
+              </button>
+              <button type="button" class="tab-btn" data-tab="quiz-tab">
+                Revision Quiz <span id="quiz-count" class="count-pill">0</span>
+              </button>
+            </div>
+            <button type="button" id="copy-notes-btn" class="secondary-btn" title="Copy Notes as Markdown">
+              Copy Notes
+            </button>
+          </div>
+
+          <div id="notes-tab" class="tab-content active">
+            <div id="notes-container" class="notes-list"></div>
+          </div>
+
+          <div id="quiz-tab" class="tab-content">
+            <div class="quiz-score-bar">
+              <span id="quiz-score-text">Score: 0 / 0</span>
+              <button type="button" id="reset-quiz-btn" class="secondary-btn">Reset Quiz</button>
+            </div>
+            <div id="quiz-container" class="quiz-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Load application script FIRST so window.onYouTubeIframeAPIReady is registered before the YT script executes -->
+  <script src="script.js"></script>
+  <script src="https://www.youtube.com/iframe_api" async></script>
+</body>
+</html>
