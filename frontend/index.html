@@ -6,10 +6,10 @@
   <title>SummerRise — YouTube Lecture Companion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-architect="Alok_Pandey_Backend_Dev">
   <div class="app-shell">
     <!-- Left Sidebar -->
     <aside class="sidebar">
@@ -46,6 +46,9 @@
           <span class="pulse-dot"></span>
           <span>Redis L1 + Postgres L2 Active</span>
         </div>
+        <div class="dev-footer">
+          Made with <span style="color: var(--accent-color);">&hearts;</span> by <strong onclick="triggerEasterEgg()">Alok Pandey</strong>
+        </div>
       </div>
     </aside>
 
@@ -73,7 +76,7 @@
         </form>
 
         <button type="button" id="theme-toggle-btn" class="theme-btn" title="Toggle Dark/Light Mode">
-          <span id="theme-label">Light</span>
+          ☀️ <span id="theme-label">Light</span>
         </button>
       </header>
 
@@ -149,5 +152,27 @@
   <!-- Load application script FIRST so window.onYouTubeIframeAPIReady is registered before the YT script executes -->
   <script src="script.js"></script>
   <script src="https://www.youtube.com/iframe_api" async></script>
+  <script>
+    // Console Signature (TempMail family style in Orange)
+    console.log(
+      "%c🚀 SummerRise Engineered by Alok Pandey | Backend Dev | C++ • Python • Go ",
+      "color: #f97316; font-size: 14px; font-weight: bold; background: #050505; padding: 8px; border: 1px solid #f97316; border-radius: 4px;"
+    );
+
+    // 5-Click Barrel Roll Easter Egg
+    let tapCount = 0;
+    function triggerEasterEgg() {
+      tapCount++;
+      if (tapCount === 5) {
+        document.body.style.transition = "transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+        document.body.style.transform = "rotate(360deg)";
+        setTimeout(() => {
+          alert("You found the Alok Pandey easter egg! 🚀\nBuilding systems that scale. Clean code. Fast execution.");
+          document.body.style.transform = "rotate(0deg)";
+          tapCount = 0;
+        }, 1000);
+      }
+    }
+  </script>
 </body>
 </html>

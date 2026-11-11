@@ -9,3 +9,4 @@ psycopg[binary]
 sqlalchemy>=2.1
 python-dotenv
 google-genai
+httpx

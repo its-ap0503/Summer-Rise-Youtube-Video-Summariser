@@ -1,54 +1,53 @@
+/* ==========================================================================
+   1. Sunrise Orange & True Black Base Styles (TempMail Aesthetic)
+   ========================================================================== */
+:root,
 :root[data-theme="dark"] {
-  --bg-base: #07080c;
-  --bg-surface: #0d1017;
-  --bg-elevated: #141923;
-  --bg-hover: #1b2230;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --text-primary: #f3f5f8;
-  --text-secondary: #9ba3b4;
-  --text-muted: #647084;
+  --bg-color: #050505;               /* Deep True Black (from TempMail) */
+  --card-bg: #111111;                /* Slightly raised black (from TempMail) */
+  --bg-elevated: #18181b;            /* Inner nested card surface */
+  --bg-hover: #222226;
 
-  /* Multi-Tone Accents: Sunrise Amber + MailFlow Emerald + Sky Cyan */
-  --amber: #f59e0b;
-  --amber-strong: #ea580c;
-  --amber-soft: rgba(245, 158, 11, 0.14);
+  --accent-color: #f97316;           /* Vibrant Sunrise Orange */
+  --accent-glow: rgba(249, 115, 22, 0.25);
+  --accent-soft: rgba(249, 115, 22, 0.14);
+  --button-hover: #ea580c;           /* Darker Sunrise Orange */
 
+  --text-color: #f8fafc;
+  --muted-color: #71717a;
+  --border-color: #27272a;
+
+  /* Semantic status & quiz feedback colors */
   --emerald: #10b981;
-  --emerald-soft: rgba(16, 185, 129, 0.13);
-
-  --cyan: #38bdf8;
-  --cyan-soft: rgba(56, 189, 248, 0.13);
-
+  --emerald-soft: rgba(16, 185, 129, 0.14);
   --danger: #ef4444;
   --danger-soft: rgba(239, 68, 68, 0.14);
-  --grid-dot: rgba(255, 255, 255, 0.035);
 }
 
-:root[data-theme="light"] {
-  --bg-base: #f4f6fb;
-  --bg-surface: #ffffff;
-  --bg-elevated: #eef2f7;
-  --bg-hover: #e2e8f0;
-  --border: rgba(15, 23, 42, 0.09);
-  --border-strong: rgba(15, 23, 42, 0.18);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
+/* ==========================================================================
+   2. Light Theme Override (Warm Sunrise / Cream feel)
+   Supports both [data-theme="light"] and body.light-theme
+   ========================================================================== */
+:root[data-theme="light"],
+body.light-theme {
+  --bg-color: #fff7ed;               /* Warm sunrise tint (matches TempMail #f0fdf4) */
+  --card-bg: #ffffff;
+  --bg-elevated: #ffedd5;
+  --bg-hover: #fed7aa;
 
-  --amber: #d97706;
-  --amber-strong: #ea580c;
-  --amber-soft: rgba(245, 158, 11, 0.14);
+  --accent-color: #ea580c;
+  --accent-glow: rgba(234, 88, 12, 0.2);
+  --accent-soft: rgba(234, 88, 12, 0.12);
+  --button-hover: #c2410c;
+
+  --text-color: #09090b;
+  --muted-color: #52525b;
+  --border-color: #d1d5db;
 
   --emerald: #059669;
-  --emerald-soft: rgba(16, 185, 129, 0.13);
-
-  --cyan: #0284c7;
-  --cyan-soft: rgba(2, 132, 199, 0.12);
-
+  --emerald-soft: rgba(5, 150, 105, 0.12);
   --danger: #dc2626;
   --danger-soft: rgba(220, 38, 38, 0.1);
-  --grid-dot: rgba(15, 23, 42, 0.05);
 }
 
 * {
@@ -58,62 +57,82 @@
 }
 
 body {
-  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg-base);
-  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
-  background-size: 20px 20px;
-  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   line-height: 1.55;
   height: 100vh;
   overflow: hidden;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .app-shell {
   display: grid;
-  grid-template-columns: 276px 1fr;
+  grid-template-columns: 280px 1fr;
   height: 100vh;
 }
 
-/* ==================== SIDEBAR ==================== */
+/* ==========================================================================
+   3. Sidebar
+   ========================================================================== */
 .sidebar {
-  background: var(--bg-surface);
-  border-right: 1px solid var(--border);
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  padding: 1.15rem;
+  padding: 1.25rem;
   height: 100vh;
+  position: relative;
+}
+
+/* TempMail signature top accent line */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-color);
+  opacity: 0.8;
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .brand-mark {
   width: 36px;
   height: 36px;
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--amber), var(--amber-strong));
-  color: #fff;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: #000;
   display: grid;
   place-items: center;
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.28);
+  box-shadow: 0 0 15px var(--accent-glow);
 }
 
 .brand-title {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
+}
+
+/* Signature TempMail colored dot after title */
+.brand-title::after {
+  content: '.';
+  color: var(--accent-color);
 }
 
 .brand-subtitle {
   font-size: 0.72rem;
-  color: var(--emerald);
-  font-family: "JetBrains Mono", monospace;
+  color: var(--muted-color);
+  font-family: 'Fira Code', monospace;
   display: block;
 }
 
@@ -121,29 +140,30 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1.1rem 0 0.65rem;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
+  margin: 1.15rem 0 0.75rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--muted-color);
 }
 
 .icon-btn {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
   border-radius: 6px;
   width: 28px;
   height: 28px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.3s ease;
 }
 
 .icon-btn:hover {
-  border-color: var(--emerald);
-  color: var(--emerald);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 .history-list {
@@ -151,33 +171,34 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding-right: 0.15rem;
+  gap: 0.6rem;
+  padding-right: 0.2rem;
 }
 
 .history-item {
-  padding: 0.7rem 0.8rem;
+  padding: 0.8rem 0.9rem;
   border-radius: 8px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .history-item:hover {
-  border-color: var(--cyan);
-  background: var(--bg-hover);
+  border-color: var(--accent-color);
   transform: translateY(-1px);
 }
 
 .history-item.active {
-  border-color: var(--emerald);
-  background: var(--emerald-soft);
+  border-color: var(--accent-color);
+  background-color: var(--accent-soft);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .history-item-title {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 600;
+  color: var(--text-color);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -185,41 +206,65 @@ body {
 }
 
 .history-item-meta {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  margin-top: 0.25rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  color: var(--accent-color);
+  margin-top: 0.3rem;
 }
 
 .empty-history {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  padding: 1rem 0.4rem;
+  font-size: 0.85rem;
+  color: var(--muted-color);
+  text-align: center;
+  padding: 2rem 0.5rem;
+  font-style: italic;
 }
 
 .sidebar-footer {
   padding-top: 0.9rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .status-dot-row {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.7rem;
-  color: var(--text-secondary);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem;
+  color: var(--muted-color);
 }
 
 .pulse-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--emerald);
-  box-shadow: 0 0 8px var(--emerald);
+  background: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
 }
 
-/* ==================== TOPBAR ==================== */
+.dev-footer {
+  color: var(--muted-color);
+  font-size: 0.78rem;
+}
+
+.dev-footer strong {
+  color: var(--accent-color);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.dev-footer strong:hover {
+  color: var(--button-hover);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* ==========================================================================
+   4. Topbar & TempMail-Style Input / Buttons
+   ========================================================================== */
 .workspace {
   display: flex;
   flex-direction: column;
@@ -231,16 +276,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.9rem 1.5rem;
-  background: var(--bg-surface);
-  border-bottom: 1px solid var(--border);
+  gap: 0.85rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .url-form {
   display: flex;
   flex: 1;
-  gap: 0.65rem;
+  gap: 12px;
   max-width: 920px;
 }
 
@@ -253,26 +298,32 @@ body {
 
 .input-icon {
   position: absolute;
-  left: 0.9rem;
-  color: var(--cyan);
+  left: 0.95rem;
+  color: var(--accent-color);
   pointer-events: none;
 }
 
 .input-wrapper input {
   width: 100%;
-  padding: 0.72rem 0.9rem 0.72rem 2.5rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--accent-color);
+  padding: 0.78rem 1rem 0.78rem 2.6rem;
   border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  color: var(--text-primary);
-  font-size: 0.88rem;
+  font-size: 0.92rem;
+  font-family: 'Fira Code', monospace;
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: all 0.3s ease;
 }
 
-.input-wrapper input:focus {
-  border-color: var(--amber);
-  box-shadow: 0 0 0 3px var(--amber-soft);
+.input-wrapper input::placeholder {
+  color: var(--muted-color);
+}
+
+.input-wrapper input:focus,
+.input-wrapper input:not(:placeholder-shown) {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px var(--accent-glow);
 }
 
 .primary-btn {
@@ -280,47 +331,60 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0 1.35rem;
-  border-radius: 8px;
-  border: none;
-  background: linear-gradient(135deg, var(--amber), var(--amber-strong));
-  color: #fff;
+  background-color: var(--accent-color);
+  color: #000;
   font-weight: 600;
-  font-size: 0.86rem;
+  font-size: 0.95rem;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.12s ease, opacity 0.15s ease;
+  transition: all 0.3s ease;
 }
 
 .primary-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--accent-glow);
+  color: #fff;
+}
+
+.primary-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .primary-btn:disabled {
-  opacity: 0.65;
+  background-color: var(--border-color);
+  color: var(--muted-color);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* TempMail pill toggle button */
 .theme-btn {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  padding: 0.6rem 0.9rem;
-  border-radius: 8px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.75rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 8px 16px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .theme-btn:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 .status-banner {
   margin: 0.75rem 1.5rem 0;
-  padding: 0.68rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 8px;
+  font-family: 'Fira Code', monospace;
   font-size: 0.82rem;
   font-weight: 500;
 }
@@ -332,12 +396,14 @@ body {
 }
 
 .status-banner.info {
-  background: var(--emerald-soft);
-  color: var(--emerald);
-  border: 1px solid var(--emerald);
+  background: var(--accent-soft);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
 }
 
-/* ==================== WELCOME STATE (KISS) ==================== */
+/* ==========================================================================
+   5. Welcome State & TempMail Card Surfaces
+   ========================================================================== */
 .welcome-state {
   flex: 1;
   display: grid;
@@ -345,62 +411,80 @@ body {
   padding: 2rem;
 }
 
+.welcome-box,
+.video-card,
+.overview-card,
+.companion-column {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle 2px orange accent line at the top of every card (TempMail signature) */
+.welcome-box::before,
+.video-card::before,
+.overview-card::before,
+.companion-column::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-color);
+  opacity: 0.75;
+  z-index: 2;
+}
+
 .welcome-box {
-  max-width: 600px;
+  max-width: 620px;
   text-align: center;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
-  border-radius: 14px;
-  padding: 2.4rem 2.2rem;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  padding: 2.5rem 2.2rem;
 }
 
 .pill-group {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.15rem;
+  gap: 0.55rem;
+  margin-bottom: 1.25rem;
 }
 
 .tone-pill {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.7rem;
-  padding: 0.25rem 0.7rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem;
+  padding: 0.28rem 0.75rem;
   border-radius: 999px;
-  font-weight: 600;
-}
-
-.tone-pill.amber {
-  background: var(--amber-soft);
-  color: var(--amber);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-}
-
-.tone-pill.emerald {
-  background: var(--emerald-soft);
-  color: var(--emerald);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-}
-
-.tone-pill.cyan {
-  background: var(--cyan-soft);
-  color: var(--cyan);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  font-weight: 500;
+  background: var(--accent-soft);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-glow);
 }
 
 .welcome-box h2 {
-  font-size: 1.45rem;
-  margin-bottom: 0.65rem;
-  letter-spacing: -0.02em;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.7rem;
+  color: var(--text-color);
+}
+
+.welcome-box h2::after {
+  content: '.';
+  color: var(--accent-color);
 }
 
 .welcome-box p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  font-size: 0.98rem;
+  color: var(--muted-color);
 }
 
-/* ==================== STUDY WORKSPACE ==================== */
+/* ==========================================================================
+   6. Active Study Workspace (Video + Notes + Quiz)
+   ========================================================================== */
 .study-workspace {
   flex: 1;
   display: grid;
@@ -413,15 +497,12 @@ body {
 .player-column {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.15rem;
   overflow-y: auto;
 }
 
 .video-card {
   background: #000;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid var(--border-strong);
 }
 
 .video-aspect-box {
@@ -440,103 +521,96 @@ body {
 }
 
 .overview-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.15rem;
+  padding: 1.35rem;
 }
 
 .card-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.65rem;
 }
 
-.tag-cyan {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--cyan);
-  background: var(--cyan-soft);
-  padding: 0.18rem 0.55rem;
-  border-radius: 4px;
-}
-
+.tag-cyan,
 .mono-badge {
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'Fira Code', monospace;
   font-size: 0.72rem;
-  color: var(--emerald);
-  background: var(--emerald-soft);
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
+  font-weight: 600;
+  color: var(--accent-color);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  padding: 0.18rem 0.55rem;
+  border-radius: 6px;
 }
 
 .lecture-title {
-  font-size: 1.12rem;
+  font-size: 1.18rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.55rem;
+  color: var(--text-color);
 }
 
 .lecture-overview {
-  font-size: 0.86rem;
-  color: var(--text-secondary);
+  font-size: 0.9rem;
+  color: var(--muted-color);
+  line-height: 1.6;
 }
 
-/* ==================== NOTES & QUIZ ==================== */
+/* ==========================================================================
+   7. Companion Column: Timestamped Notes & Quiz
+   ========================================================================== */
 .companion-column {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .tabs-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-elevated);
-  padding: 0 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  padding: 0.2rem 1rem 0;
 }
 
 .tabs-left {
   display: flex;
   align-items: center;
+  gap: 0.25rem;
 }
 
 .tab-btn {
   background: transparent;
   border: none;
-  color: var(--text-secondary);
-  padding: 0.8rem 1rem;
-  font-size: 0.84rem;
+  color: var(--muted-color);
+  padding: 0.85rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  transition: color 0.15s ease;
+  gap: 0.5rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .tab-btn:hover {
-  color: var(--text-primary);
+  color: var(--text-color);
 }
 
 .tab-btn.active {
-  color: var(--text-primary);
-  border-bottom-color: var(--amber);
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
 }
 
 .count-pill {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.68rem;
-  background: var(--amber-soft);
-  color: var(--amber);
-  padding: 0.1rem 0.45rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem;
+  background: var(--accent-soft);
+  color: var(--accent-color);
+  padding: 0.1rem 0.5rem;
   border-radius: 999px;
 }
 
@@ -544,7 +618,7 @@ body {
   display: none;
   flex: 1;
   overflow-y: auto;
-  padding: 1.1rem;
+  padding: 1.25rem;
 }
 
 .tab-content.active {
@@ -556,121 +630,141 @@ body {
 .quiz-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.9rem;
 }
 
+/* Note Card styled like TempMail's .message-card */
 .note-card {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 0.95rem;
-  transition: border-color 0.15s ease;
+  padding: 1.15rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .note-card:hover {
-  border-color: var(--emerald);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .note-header {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.4rem;
+  gap: 0.7rem;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .timestamp-btn {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.74rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--emerald);
-  background: var(--emerald-soft);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  padding: 0.2rem 0.55rem;
-  border-radius: 5px;
+  color: var(--accent-color);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-color);
+  padding: 0.22rem 0.6rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .timestamp-btn:hover {
-  background: var(--emerald);
-  color: #06080c;
+  background: var(--accent-color);
+  color: #000;
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 .note-heading {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: var(--accent-color);
 }
 
 .note-summary {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
+  font-size: 0.9rem;
+  color: var(--text-color);
+  line-height: 1.55;
 }
 
-/* ==================== QUIZ ==================== */
+/* Secondary Outline Button (matches TempMail #btn-refresh) */
+.secondary-btn {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondary-btn:hover:not(:disabled) {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background-color: transparent;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Quiz Components */
 .quiz-score-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6rem 0.85rem;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  margin-bottom: 0.85rem;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.78rem;
-  color: var(--cyan);
-}
-
-.secondary-btn {
-  background: var(--bg-surface);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-  padding: 0.35rem 0.7rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.secondary-btn:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
+  margin-bottom: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: var(--accent-color);
 }
 
 .quiz-card {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 1.15rem;
+  transition: border-color 0.2s ease;
+}
+
+.quiz-card:hover {
+  border-color: var(--accent-color);
 }
 
 .quiz-question {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
 }
 
 .quiz-options {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
 .quiz-option-btn {
   text-align: left;
-  padding: 0.62rem 0.85rem;
-  border-radius: 6px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  font-size: 0.83rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .quiz-option-btn:hover:not(:disabled) {
-  border-color: var(--amber);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
 .quiz-option-btn.correct {
@@ -687,13 +781,13 @@ body {
 }
 
 .quiz-explanation {
-  margin-top: 0.7rem;
-  padding: 0.65rem 0.8rem;
+  margin-top: 0.8rem;
+  padding: 0.75rem 0.9rem;
   border-radius: 6px;
-  background: var(--cyan-soft);
-  border-left: 3px solid var(--cyan);
-  font-size: 0.8rem;
-  color: var(--text-primary);
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent-color);
+  font-size: 0.84rem;
+  color: var(--text-color);
 }
 
 .hidden {
@@ -703,8 +797,8 @@ body {
 .spinner {
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #000;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -715,18 +809,57 @@ body {
   }
 }
 
+/* ==========================================================================
+   8. Mobile & Tablet Responsiveness
+   ========================================================================== */
 @media (max-width: 1024px) {
   body {
     overflow: auto;
     height: auto;
   }
+
   .app-shell,
   .study-workspace {
     grid-template-columns: 1fr;
     height: auto;
   }
+
+  .workspace {
+    height: auto;
+    overflow: visible;
+  }
+
   .sidebar {
     height: auto;
-    max-height: 260px;
+    max-height: 280px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+  }
+
+  .url-form {
+    flex-direction: column;
+  }
+
+  .theme-btn {
+    align-self: flex-end;
+  }
+
+  .study-workspace {
+    padding: 1rem;
+  }
+
+  .tabs-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding-bottom: 0.6rem;
   }
 }
